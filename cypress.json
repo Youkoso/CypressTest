@@ -1,0 +1,6 @@
+{
+    "env": {
+        "bolUrl": "https://www.bol.com/nl/",
+        "userApiUrl": "https://petstore.swagger.io/v2/user"
+    }
+}

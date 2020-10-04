@@ -1,0 +1,9 @@
+{
+  "favourites": "a[data-test=icon-heart-vi]",
+  "profile": "a[data-test=icon-account]",
+  "basket": "a[data-test=icon-basket]",
+  "productNameTest01": "Apple AirPods 2",
+  "productHrefTest01": "apple-airpods-2-niet-draadloze-oplaadcase-wit",
+  "email": "testsreportbox@yandex.ru",
+  "password": "x342d-Afe3d"
+}

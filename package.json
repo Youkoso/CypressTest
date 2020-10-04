@@ -1,0 +1,20 @@
+{
+  "name": "cypresstest",
+  "version": "1.0.0",
+  "description": "Tests for cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open"
+  },
+  "author": "Artem Youkoso",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress-wait-until": "^1.7.1",
+    "cypress": "^5.3.0",
+    "cypress-failed-log": "^2.7.0",
+    "lodash": "^4.17.20",
+    "chance": "^1.1.7",
+    "@types/chance": "^1.1.0"
+  }
+}
