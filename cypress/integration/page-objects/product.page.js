@@ -11,7 +11,7 @@ class ProductPage extends Page {
     productPresence(productName) {
         cy.getDataTestLike('product-title')
           .find('span[data-test="title"]')
-          .contains(`${productName}`);
+          .contains(productName);
     }
 
 

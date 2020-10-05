@@ -9,7 +9,7 @@ It does contain few frontend and backend tests:
 
 During development were used: 
 
-Node.js v12.18.3 (should be installed separately)
+Node.js v12.18.4 (should be installed separately)
 ```
 "cypress": "^5.3.0"
 "cypress-wait-until": "^1.7.1"

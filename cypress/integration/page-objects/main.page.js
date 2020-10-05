@@ -5,7 +5,7 @@ class MainPage extends Page {
 
     visit() {
         cy.clearCookies();
-        cy.visit(`${URL_BOL}`);
+        cy.visit(URL_BOL);
         cy.wait(1000);
         this.acceptCookies();
     }

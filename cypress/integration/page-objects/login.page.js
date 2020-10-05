@@ -21,10 +21,10 @@ class LoginPage extends Page {
     }
 
     userDoesLogin(email, password) {
-        this.emailField.type(`${email}`)
-                       .should('have.value', `${email}`);
-        this.passwordField.type(`${password}`)
-                          .should('have.value', `${password}`);
+        this.emailField.type(email)
+                       .should('have.value', email);
+        this.passwordField.type(password)
+                          .should('have.value', password);
         this.loginButton.click();
     }
 }

@@ -11,14 +11,7 @@ describe('Test for user GET', () => {
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', requestData.id);
-            expect(response.body).to.have.property('username', requestData.username);
-            expect(response.body).to.have.property('firstName', requestData.firstName);
-            expect(response.body).to.have.property('lastName', requestData.lastName);
-            expect(response.body).to.have.property('email', requestData.email);
-            expect(response.body).to.have.property('password', requestData.password);
-            expect(response.body).to.have.property('phone', requestData.phone);
-            expect(response.body).to.have.property('userStatus', requestData.userStatus);
+            expect(response.body).to.deep.equal(requestData);
         })
     });
 

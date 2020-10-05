@@ -8,5 +8,6 @@
         "runMode": 2,
         "openMode": 0
       },
-    "chromeWebSecurity": false
+    "chromeWebSecurity": false,
+    "integrationFolder":  "cypress/integration/mixed-tests/Test02"
 }

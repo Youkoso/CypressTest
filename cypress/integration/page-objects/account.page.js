@@ -4,7 +4,7 @@ class AccountPage extends Page {
 
     validateLogin(email) {
         cy.getDataTestLike('email')
-          .should('contain', `${email}`);
+          .should('contain', email);
     }
 }
 

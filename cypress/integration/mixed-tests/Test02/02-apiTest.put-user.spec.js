@@ -23,14 +23,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(newRequestData);
         })
     });
 
@@ -56,19 +49,12 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(newRequestData);
         })
     });
 
     it('Positive: Update non existing user through non-existing user endpoint', () => {
-        let requestData = {id: getUserRequestData().id, username: getUserRequestData().username};   
+        let requestData = {id: getUserRequestData().id, username: getUserRequestData().username, userStatus: getUserRequestData().userStatus};   
         updateUser(requestData, requestData.username).then(response => {
             expect(response.status).to.eq(200);
             expect(response.body.code).to.eq(200);
@@ -78,9 +64,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', requestData.id);
-            expect(response.body).to.have.property('username', requestData.username);
-            expect(response.body).to.have.property('userStatus', 0);
+            expect(response.body).to.deep.equal(requestData);
         })
     });
 
@@ -89,33 +73,8 @@ describe('Test for Update user', () => {
         let newRequestData = getUserRequestData();
         newRequestData.id = String(initialRequestData.id);
         newRequestData.username = initialRequestData.username;
-        createUser(initialRequestData).then(response => {
-            expect(response.status).to.eq(200);
-        }) 
-        updateUser(newRequestData, newRequestData.username).then(response => {
-            expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
-            expect(response.body.message).to.be.eq(newRequestData.id);
-            expect(response.body).to.have.property('type', 'unknown');
-        })
-        getUserByUserName(newRequestData.username).then(response => {
-            expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', Number(newRequestData.id));
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
-        })
-    });
-
-    it('Positive: Update user by invalid username type - number instead of string', () => {
-        let initialRequestData = getUserRequestData();
-        let newRequestData = getUserRequestData();
-        newRequestData.id = initialRequestData.id;
-        newRequestData.username = Chance().integer();
+        let checkData = newRequestData;
+        checkData.id = Number(checkData.id);
         createUser(initialRequestData).then(response => {
             expect(response.status).to.eq(200);
         }) 
@@ -127,14 +86,29 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', String(newRequestData.username));
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(checkData);
+        })
+    });
+
+    it('Positive: Update user by invalid username type - number instead of string', () => {
+        let initialRequestData = getUserRequestData();
+        let newRequestData = getUserRequestData();
+        newRequestData.id = initialRequestData.id;
+        newRequestData.username = Chance().integer();
+        let checkData = newRequestData;
+        checkData.username = String(checkData.username);
+        createUser(initialRequestData).then(response => {
+            expect(response.status).to.eq(200);
+        }) 
+        updateUser(newRequestData, newRequestData.username).then(response => {
+            expect(response.status).to.eq(200);
+            expect(response.body.code).to.eq(200);
+            expect(response.body.message).to.be.eq(String(newRequestData.id));
+            expect(response.body).to.have.property('type', 'unknown');
+        })
+        getUserByUserName(newRequestData.username).then(response => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.deep.equal(checkData);
         })
     });
 
@@ -144,6 +118,8 @@ describe('Test for Update user', () => {
         newRequestData.id = initialRequestData.id;
         newRequestData.username = initialRequestData.username;
         newRequestData.firstName = Chance().integer();
+        let checkData = newRequestData;
+        checkData.firstName = String(checkData.firstName);
         createUser(initialRequestData).then(response => {
             expect(response.status).to.eq(200);
         }) 
@@ -155,14 +131,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', String(newRequestData.firstName));
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(checkData);
         })
     });
 
@@ -172,6 +141,8 @@ describe('Test for Update user', () => {
         newRequestData.id = initialRequestData.id;
         newRequestData.username = initialRequestData.username;
         newRequestData.lastName = Chance().integer();
+        let checkData = newRequestData;
+        checkData.lastName = String(checkData.lastName);
         createUser(initialRequestData).then(response => {
             expect(response.status).to.eq(200);
         }) 
@@ -183,14 +154,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', String(newRequestData.lastName));
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(checkData);
         })
     });
 
@@ -200,6 +164,8 @@ describe('Test for Update user', () => {
         newRequestData.id = initialRequestData.id;
         newRequestData.username = initialRequestData.username;
         newRequestData.email = Chance().integer();
+        let checkData = newRequestData;
+        checkData.email = String(checkData.email);
         createUser(initialRequestData).then(response => {
             expect(response.status).to.eq(200);
         }) 
@@ -211,14 +177,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', String(newRequestData.email));
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(checkData);
         })
     });
 
@@ -228,6 +187,8 @@ describe('Test for Update user', () => {
         newRequestData.id = initialRequestData.id;
         newRequestData.username = initialRequestData.username;
         newRequestData.password = Chance().integer();
+        let checkData = newRequestData;
+        checkData.password = String(checkData.password);
         createUser(initialRequestData).then(response => {
             expect(response.status).to.eq(200);
         }) 
@@ -239,14 +200,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', String(newRequestData.password));
-            expect(response.body).to.have.property('phone', newRequestData.phone);
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(checkData);
         })
     });
 
@@ -256,6 +210,8 @@ describe('Test for Update user', () => {
         newRequestData.id = initialRequestData.id;
         newRequestData.username = initialRequestData.username;
         newRequestData.phone = Chance().integer();
+        let checkData = newRequestData;
+        checkData.phone = String(checkData.phone);
         createUser(initialRequestData).then(response => {
             expect(response.status).to.eq(200);
         }) 
@@ -267,14 +223,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', newRequestData.id);
-            expect(response.body).to.have.property('username', newRequestData.username);
-            expect(response.body).to.have.property('firstName', newRequestData.firstName);
-            expect(response.body).to.have.property('lastName', newRequestData.lastName);
-            expect(response.body).to.have.property('email', newRequestData.email);
-            expect(response.body).to.have.property('password', newRequestData.password);
-            expect(response.body).to.have.property('phone', String(newRequestData.phone));
-            expect(response.body).to.have.property('userStatus', newRequestData.userStatus);
+            expect(response.body).to.deep.equal(checkData);
         })
     });
 
@@ -319,14 +268,7 @@ describe('Test for Update user', () => {
         })
         getUserByUserName(initialRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('id', initialRequestData.id);
-            expect(response.body).to.have.property('username', initialRequestData.username);
-            expect(response.body).to.have.property('firstName', initialRequestData.firstName);
-            expect(response.body).to.have.property('lastName', initialRequestData.lastName);
-            expect(response.body).to.have.property('email', initialRequestData.email);
-            expect(response.body).to.have.property('password', initialRequestData.password);
-            expect(response.body).to.have.property('phone', initialRequestData.phone);
-            expect(response.body).to.have.property('userStatus', initialRequestData.userStatus);
+            expect(response.body).to.deep.equal(initialRequestData);
         })
     });
 
