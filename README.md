@@ -43,7 +43,7 @@ npm run cypress:run
 ```
 npx cypress run -b chrome
 ```
-3. To start tests within particular test suite specify related config file
+3. To start tests within particular test suite specify related config file.\
 Example:
 ```
 npx cypress run  --config-file cypress-run-Test01.json
