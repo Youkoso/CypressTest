@@ -35,9 +35,18 @@ npm install
 ```
 npx run cypress
 ```
+or
+```
+npm run cypress:run
+```
 2. To start tests in chrome.
 ```
 npx cypress run -b chrome
+```
+3. To start tests within particular test suite specify related config file
+Example:
+```
+npx cypress run  --config-file cypress-run-Test01.json
 ```
 
 #### Run tests via cypress Test Runner
