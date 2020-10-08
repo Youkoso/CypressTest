@@ -32,9 +32,7 @@ describe('Test for user DELETE', () => {
         })
         deleteUser(requestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', requestData.username);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         deleteUser(requestData.username, false).then(response => {
             expect(response.status).to.eq(404);

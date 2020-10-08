@@ -18,7 +18,6 @@ describe('Test for Update user', () => {
             expect(response.status).to.eq(200);
             expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(newRequestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
             expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
@@ -42,10 +41,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, endPoint).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(newRequestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -57,10 +53,7 @@ describe('Test for Update user', () => {
         let requestData = {id: getUserRequestData().id, username: getUserRequestData().username, userStatus: getUserRequestData().userStatus};   
         updateUser(requestData, requestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -80,9 +73,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body.message).to.be.eq(String(newRequestData.id));
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -102,9 +93,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body.message).to.be.eq(String(newRequestData.id));
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -125,9 +114,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body.message).to.be.eq(String(newRequestData.id));
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -148,9 +135,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body.message).to.be.eq(String(newRequestData.id));
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -171,9 +156,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body.message).to.be.eq(String(newRequestData.id));
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -194,9 +177,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body.message).to.be.eq(String(newRequestData.id));
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -217,9 +198,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body.message).to.be.eq(String(newRequestData.id));
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -234,9 +213,7 @@ describe('Test for Update user', () => {
         })    
         updateUser({}, requestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(Number(response.body.message)).to.be.eq(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
     });
 
@@ -248,7 +225,6 @@ describe('Test for Update user', () => {
         cy.request({method: 'PUT', url: `${URL_API}/${requestData.username}`, failOnStatusCode: false}).then(response => {
             expect(response.status).to.eq(415);
             expect(response.body.code).to.eq(415);
-            expect(response.body).to.have.property('type', 'unknown');
         })
     });
 
@@ -262,9 +238,7 @@ describe('Test for Update user', () => {
         }) 
         updateUser(newRequestData, newRequestData.username).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(initialRequestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -279,7 +253,6 @@ describe('Test for Update user', () => {
             console.log(response);
             expect(response.status).to.eq(500);
             expect(response.body.code).to.eq(500);
-            expect(response.body).to.have.property('type', 'unknown');
             expect(response.body.message).to.be.eq('something bad happened');
         })
     });
@@ -291,7 +264,6 @@ describe('Test for Update user', () => {
             console.log(response);
             expect(response.status).to.eq(500);
             expect(response.body.code).to.eq(500);
-            expect(response.body).to.have.property('type', 'unknown');
             expect(response.body.message).to.be.eq('something bad happened');
         })
     });

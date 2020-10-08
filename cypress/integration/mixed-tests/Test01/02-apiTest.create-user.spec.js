@@ -22,12 +22,10 @@ describe('Create a new User', () =>{
                 expect(response.status).to.eq(200);
                 expect(response.body.code).to.eq(200);
                 expect(response.body).to.have.property('message', String(requestData.id));
-                expect(Number(response.body.message)).to.be.greaterThan(0);
                 expect(response.body).to.have.property('type', 'unknown');
             })
             getUserByUserName(requestData.username).then(response => {
                 expect(response.status).to.eq(200);
-                expect(response.body.id).to.be.greaterThan(0);
                 expect(response.body).to.deep.equal(requestData);
             })
         })
@@ -39,21 +37,14 @@ describe('Create a new User', () =>{
         newRequestData.id = initialRequestData.id;
         createUser(initialRequestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(initialRequestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         createUser(newRequestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(newRequestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(newRequestData.username).then(response => {
                 expect(response.status).to.eq(200);
-                expect(response.body.id).to.be.greaterThan(0);
                 expect(response.body).to.deep.equal(newRequestData);
         })
         getUserByUserName(initialRequestData.username, false).then(response => {
@@ -69,13 +60,10 @@ describe('Create a new User', () =>{
         let requestData = {username: getUserRequestData().username};
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
                 expect(response.status).to.eq(200);
-                expect(response.body.id).to.be.greaterThan(0);
                 expect(response.body).to.have.property('username', requestData.username);
                 expect(response.body.userStatus).to.be.eq(0);
         })
@@ -85,10 +73,7 @@ describe('Create a new User', () =>{
         let requestData = {id: getUserRequestData(DATA_SET.MIN).id};
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
     });
 
@@ -97,10 +82,7 @@ describe('Create a new User', () =>{
         delete requestData.username;
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
     });
 
@@ -109,9 +91,7 @@ describe('Create a new User', () =>{
         delete requestData.id;
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
     });
 
@@ -122,15 +102,12 @@ describe('Create a new User', () =>{
         console.log(requestData);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(Number(response.body.message)).not.to.be.eq(requestData.id);
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');    
+            expect(Number(response.body.message)).to.be.greaterThan(0);   
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
             expect(response.body.id).to.be.greaterThan(0);
-            expect(response.body.id).to.be.not.eq(requestData.id);
             expect(response.body).to.have.property('username', requestData.username);
             expect(response.body).to.have.property('firstName', requestData.firstName);
             expect(response.body).to.have.property('lastName', requestData.lastName);
@@ -148,10 +125,7 @@ describe('Create a new User', () =>{
         checkData.username = String(checkData.username);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -166,10 +140,7 @@ describe('Create a new User', () =>{
         checkData.firstName = String(checkData.firstName);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -184,9 +155,7 @@ describe('Create a new User', () =>{
         checkData.lastName = String(checkData.lastName);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
             expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
@@ -202,10 +171,7 @@ describe('Create a new User', () =>{
         checkData.email = String(checkData.email);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -220,10 +186,7 @@ describe('Create a new User', () =>{
         checkData.password = String(checkData.password);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -238,10 +201,7 @@ describe('Create a new User', () =>{
         checkData.phone = String(checkData.phone);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(response.body).to.have.property('message', String(requestData.id));
-            expect(Number(response.body.message)).to.be.greaterThan(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
         getUserByUserName(requestData.username).then(response => {
             expect(response.status).to.eq(200);
@@ -255,9 +215,7 @@ describe('Create a new User', () =>{
         delete requestData.username;
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
-            expect(Number(response.body.message)).to.be.eq(0);
-            expect(response.body).to.have.property('type', 'unknown');   
+            expect(Number(response.body.message)).to.be.eq(0);  
         })
     });
 
@@ -265,9 +223,7 @@ describe('Create a new User', () =>{
         let requestData = {};
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(Number(response.body.message)).to.be.eq(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
     });
 
@@ -287,9 +243,7 @@ describe('Create a new User', () =>{
         console.log(requestData);
         createUser(requestData).then(response => {
             expect(response.status).to.eq(200);
-            expect(response.body.code).to.eq(200);
             expect(Number(response.body.message)).to.be.eq(0);
-            expect(response.body).to.have.property('type', 'unknown');
         })
     });
 
@@ -300,7 +254,6 @@ describe('Create a new User', () =>{
             console.log(response);
             expect(response.status).to.eq(500);
             expect(response.body.code).to.eq(500);
-            expect(response.body).to.have.property('type', 'unknown');
             expect(response.body.message).to.be.eq('something bad happened');
         })
     });
@@ -312,7 +265,6 @@ describe('Create a new User', () =>{
             console.log(response);
             expect(response.status).to.eq(500);
             expect(response.body.code).to.eq(500);
-            expect(response.body).to.have.property('type', 'unknown');
             expect(response.body.message).to.be.eq('something bad happened');
         })
     });
